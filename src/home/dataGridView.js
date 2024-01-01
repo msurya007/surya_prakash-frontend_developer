@@ -18,8 +18,8 @@ const DataGridView = () => {
     const [itemsPerPage, setItemsPerPage] = useState(10); // Number of items to display per page
 
     useEffect(() => {
-        console.log("search", searchData, searchTrigger)
         getList();
+        // eslint-disable-next-line
     }, [searchTrigger])
 
     const handleItemClick = (data) => {
@@ -39,29 +39,7 @@ const DataGridView = () => {
         setSearchTrigger(false)
         let url = "https://api.spacexdata.com/v4/rockets/query"
 
-        // let obj = {
-        //     "query": {
-        //         "name": {
-        //             "eq": "Starship"
-        //         }
-        //     }
-        // }
-        // let body = {
-        //     method: "POST",
-        //     body: JSON.stringify(obj)
-        // }
         try {
-            // await fetch(url, body)
-            //     .then(res => res.json())
-            //     .then(value => {
-
-            //         if (value && value.docs && value.docs.length > 0) {
-            //             SetDataList(value.docs)
-            //         }
-            //         else {
-            //             SetDataList([])
-            //         }
-            //     })
             let query = searchData ? (searchData.name && searchData.type ?
                 { name: { $eq: searchData.name }, type: { $eq: searchData.type } }
                 : (searchData.name ? { name: { $eq: searchData.name } }
@@ -70,7 +48,6 @@ const DataGridView = () => {
             const { data } = await axios.post(url, {
                 query: query
             });
-            console.log('API Response:', data);
             if (data && data.docs && data.docs.length > 0) {
                 SetDataList(data.docs)
             }
@@ -85,7 +62,6 @@ const DataGridView = () => {
     }
 
     const handleItemsPerPageChange = (event) => {
-        console.log(event.target.value, "vaa")
         setItemsPerPage(event.target.value);
         setCurrentPage(1);
       };

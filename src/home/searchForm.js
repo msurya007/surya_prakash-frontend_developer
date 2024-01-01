@@ -15,7 +15,6 @@ const SearchForm = () => {
     };
 
     const handleSearchClick = () => {
-        console.log("searchData=", searchData)
         setSearchTrigger(true)
     };
 
